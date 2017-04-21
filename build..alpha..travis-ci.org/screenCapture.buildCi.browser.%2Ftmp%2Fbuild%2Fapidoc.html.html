@@ -1,0 +1,358 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/garbin/elasticsearch-reindex">elasticsearch-reindex (v1.1.15)</a>
+</h1>
+<h4>Elasticsearch reindex tool</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.elasticsearch-reindex">module elasticsearch-reindex</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.elasticsearch-reindex.indexer">
+            function <span class="apidocSignatureSpan">elasticsearch-reindex.</span>indexer
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">elasticsearch-reindex.</span>indexer.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.elasticsearch-reindex.indexer">module elasticsearch-reindex.indexer</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.elasticsearch-reindex.indexer.indexer">
+            function <span class="apidocSignatureSpan">elasticsearch-reindex.</span>indexer
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.elasticsearch-reindex.indexer.super_">
+            function <span class="apidocSignatureSpan">elasticsearch-reindex.indexer.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.elasticsearch-reindex.indexer.prototype">module elasticsearch-reindex.indexer.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.elasticsearch-reindex.indexer.prototype.index">
+            function <span class="apidocSignatureSpan">elasticsearch-reindex.indexer.prototype.</span>index
+            <span class="apidocSignatureSpan">(docs, options, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.elasticsearch-reindex.indexer.prototype.indexPromise">
+            function <span class="apidocSignatureSpan">elasticsearch-reindex.indexer.prototype.</span>indexPromise
+            <span class="apidocSignatureSpan">(docs, options, cb)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.elasticsearch-reindex" id="apidoc.module.elasticsearch-reindex">module elasticsearch-reindex</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.elasticsearch-reindex.indexer" id="apidoc.element.elasticsearch-reindex.indexer">
+        function <span class="apidocSignatureSpan">elasticsearch-reindex.</span>indexer
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Indexer() {
+  EventEmitter.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+options.indexer = options.indexer || _defaultIndexer;
+
+var chunks = _.toArray(_.groupBy(docs, function(item, index){ return Math.floor(index/options.bulk); }));
+async.eachLimit(chunks, options.concurrency, function(chunk, cb) {
+  var bulk_data = [];
+  chunk.forEach(function(item) {
+    bulk_data = bulk_data.concat(options.<span class="apidocCodeKeywordSpan">indexer</span>(item, options));
+  });
+  options.client.bulk({
+    body: bulk_data
+  }, function(err, res) {
+    if (err) {
+      self.emit('error', err);
+      return cb(err);
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.elasticsearch-reindex.indexer" id="apidoc.module.elasticsearch-reindex.indexer">module elasticsearch-reindex.indexer</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.elasticsearch-reindex.indexer.indexer" id="apidoc.element.elasticsearch-reindex.indexer.indexer">
+        function <span class="apidocSignatureSpan">elasticsearch-reindex.</span>indexer
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Indexer() {
+  EventEmitter.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+options.indexer = options.indexer || _defaultIndexer;
+
+var chunks = _.toArray(_.groupBy(docs, function(item, index){ return Math.floor(index/options.bulk); }));
+async.eachLimit(chunks, options.concurrency, function(chunk, cb) {
+  var bulk_data = [];
+  chunk.forEach(function(item) {
+    bulk_data = bulk_data.concat(options.<span class="apidocCodeKeywordSpan">indexer</span>(item, options));
+  });
+  options.client.bulk({
+    body: bulk_data
+  }, function(err, res) {
+    if (err) {
+      self.emit('error', err);
+      return cb(err);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.elasticsearch-reindex.indexer.super_" id="apidoc.element.elasticsearch-reindex.indexer.super_">
+        function <span class="apidocSignatureSpan">elasticsearch-reindex.indexer.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.elasticsearch-reindex.indexer.prototype" id="apidoc.module.elasticsearch-reindex.indexer.prototype">module elasticsearch-reindex.indexer.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.elasticsearch-reindex.indexer.prototype.index" id="apidoc.element.elasticsearch-reindex.indexer.prototype.index">
+        function <span class="apidocSignatureSpan">elasticsearch-reindex.indexer.prototype.</span>index
+        <span class="apidocSignatureSpan">(docs, options, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">index = function (docs, options, cb) {
+  if (!docs) {
+    return;
+  }
+  var self = this;
+  options = options || {};
+  options = options || {
+    concurrency:require('os').cpus().length,
+    bulk:100
+  };
+  options.indexer = options.indexer || _defaultIndexer;
+
+  var chunks = _.toArray(_.groupBy(docs, function(item, index){ return Math.floor(index/options.bulk); }));
+  async.eachLimit(chunks, options.concurrency, function(chunk, cb) {
+    var bulk_data = [];
+    chunk.forEach(function(item) {
+      bulk_data = bulk_data.concat(options.indexer(item, options));
+    });
+    options.client.bulk({
+      body: bulk_data
+    }, function(err, res) {
+      if (err) {
+        self.emit('error', err);
+        return cb(err);
+      }
+      if (res.errors) {
+        res.items.forEach(function(item) {
+          if (_.indexOf([200, 201], item.index.status) == -1) {
+            self.emit('item-failed', item);
+          }
+          self.emit('batch-complete', 1);
+        });
+      } else {
+        self.emit('batch-complete', chunk.length);
+      }
+      cb(err);
+    });
+  }, function(err) {
+    cb(err);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.elasticsearch-reindex.indexer.prototype.indexPromise" id="apidoc.element.elasticsearch-reindex.indexer.prototype.indexPromise">
+        function <span class="apidocSignatureSpan">elasticsearch-reindex.indexer.prototype.</span>indexPromise
+        <span class="apidocSignatureSpan">(docs, options, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">indexPromise = function (docs, options, cb) {
+  if (!docs) {
+    return;
+  }
+
+  var self = this;
+
+  options = options || {};
+  options = options || {
+    concurrency:require('os').cpus().length,
+    bulk:100,
+  };
+
+  options.indexer = options.indexer || _defaultIndexer;
+
+  var chunks = _.toArray(_.groupBy(docs, function(item, index) {
+    return Math.floor(index/options.bulk);
+  }));
+
+  async.eachLimit(chunks, options.concurrency, function(chunk, cb) {
+    // holds whether the promise has finished
+    var sent = false;
+
+    // map each indexer to return a promise
+    return Promise.all(chunk.map(function(item) {
+      return options.indexer(item, options, options.client);
+    })).catch(function (err) {
+      self.emit('error', err);
+      throw cb(sent = err);
+    })
+
+    // Once all of the data resolves index it
+    .then(function (bulk_data) {
+      bulk_data = _.flatten(bulk_data).filter(function(x) { return x; });
+
+      if (!bulk_data.length) {
+        return {};
+      }
+
+      return options.client.bulk({
+        body: bulk_data
+      });
+    }).catch(function (err) {
+      if (sent) throw err;
+
+      self.emit('error', err);
+      throw cb(sent = err);
+    })
+
+    // Indexed via ES successfully
+    .then(function(res) {
+      if (res.errors) {
+        throw res;
+      }
+
+      self.emit('batch-complete', chunk.length);
+      return cb();
+    }).catch(function (err) {
+      if (sent) throw err;
+
+      err &amp;&amp; Array.isArray(err.items) &amp;&amp; err.items.forEach(function(item) {
+        if (_.indexOf([200, 201], item.index.status) == -1) {
+          self.emit('item-failed', item);
+        }
+        self.emit('batch-complete', 1);
+      });
+
+      cb(sent = err);
+    });
+  }, function(err) {
+    cb(err);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
